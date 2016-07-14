@@ -1,6 +1,6 @@
 
 class PIDController:
-	def __init__(self, Kp=0, Kd=0, Ki=0, time=0):
+	def __init__(self,time, Kp=0, Kd=0, Ki=0):
 		self._Kp = Kp
 		self._Kd = Kd
 		self._Ki = Ki
@@ -9,7 +9,7 @@ class PIDController:
 		self._error=0
 		self._lastTime = time
 
-	def update(error, time):
+	def update(self, error, time):
 		P = self._Kp * error
 
 		dt = float(time - self._lastTime)

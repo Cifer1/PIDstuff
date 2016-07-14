@@ -1,4 +1,5 @@
-import rospy,  math
+#!/usr/bin/env python
+import rospy, math
 from sensor_msgs.msg import LaserScan
 from ackermann_msgs.msg import AckermannDriveStamped
 from PID import PIDController
@@ -11,7 +12,7 @@ class pidDriver:
         self.scan = [0]
         rospy.init_node("wall_PID",  anonymous=False)
         rate = rospy.Rate(10)
-        pid = PIDController(0.5)
+        pid = PIDController(rospy.Time.now().to_sec(),0.000000001)
         #init the pub/subs
         self.drive = rospy.Publisher("/vesc/ackermann_cmd_mux/input/teleop",  AckermannDriveStamped,  queue_size=5)
         rospy.Subscriber("scan",  LaserScan,  self.callback)
@@ -20,7 +21,7 @@ class pidDriver:
         drive_msg.drive.steering_angle = 0.0
         drive_msg.drive.speed = self.speed
         
-        dist_trav = 5.0 
+        dist_trav = 5.0
         total = 0.0
         
         time = dist_trav/self.speed
@@ -32,7 +33,7 @@ class pidDriver:
                 total += i
             meanD = total/len(self.scan)
             self.error = self.d_des - meanD
-            pidVal = pid.update(self.error,  ros.Time.now())
+            pidVal = pid.update(self.error,  rospy.Time.now().to_sec())
             pidVal = pidVal/abs(pidVal) * max(1.0,  abs(pidVal)) if pidVal!=0 else 0
             drive_msg.drive.steering_angle = pidVal
             self.drive.publish(drive_msg)
