@@ -8,7 +8,7 @@ class pidDriver:
         self.error = 0 # initializes the running error counter
         self.d_des = d_des # takes desired dist from wall
         self.speed = speed
-        self.scan = []
+        self.scan = [0]
         rospy.init_node("wall_PID",  anonymous=False)
         rate = rospy.Rate(10)
         pid = PIDController(0.5)

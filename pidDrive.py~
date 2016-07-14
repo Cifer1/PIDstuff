@@ -46,5 +46,5 @@ class pidDriver:
     
     
 if __name__ == "__main__":
-    wallF(0.4,0.2,0.5,1.5)
+    pidDriver(0.5,1.5)
     rospy.spin()
