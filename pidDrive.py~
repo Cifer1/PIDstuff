@@ -28,7 +28,7 @@ class pidDriver:
 		#init the pub/subs
 		self.drive_pub = rospy.Publisher("/vesc/ackermann_cmd_mux/input/teleop",  AckermannDriveStamped,  queue_size=5)
 		rospy.Subscriber("left_or_right", Int32, self.leftRight)
-		rospy.Subscriber("/racecar/laser/scan",  LaserScan,  self.callback)
+		rospy.Subscriber("/scan",  LaserScan,  self.callback)
 		
 		# START PUB FUNCTION
 	    	self.publisher()
@@ -86,5 +86,5 @@ class pidDriver:
 		rospy.Rate(10).sleep()
 
 if __name__ == "__main__":
-	pidDriver(2,1.7,20)
+	pidDriver(0.61,2.0,20)
 rospy.spin()

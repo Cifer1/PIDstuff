@@ -34,6 +34,7 @@ class pidDriver:
 	    	self.publisher()
     def leftRight(self, msg):
 	self.sideFlag = msg
+	print str(self.sideFlag)
     def callback(self,msg):
 		self.scan1 = []
 		self.scan2 = []	
@@ -86,5 +87,5 @@ class pidDriver:
 		rospy.Rate(10).sleep()
 
 if __name__ == "__main__":
-	pidDriver(2,1.7,20)
+	pidDriver(0.61,2.0,20)
 rospy.spin()
