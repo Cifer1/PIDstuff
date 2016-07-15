@@ -19,7 +19,9 @@ class PIDController:
 		I = self._integrator * self._Ki
 		errDiff = error - self._error
 		diff = errDiff/dt if dt != 0 else 0
-		D = self._Kd * diff
+		print str(diff * self._Kd)
+		print str(self._Kd)
+		D = self._Kd * (errDiff / dt) if dt != 0 else 0
 		PID = P + I + D
 
 		self._lastTime = time
